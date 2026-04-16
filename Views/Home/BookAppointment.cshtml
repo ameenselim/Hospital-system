@@ -1,0 +1,28 @@
+﻿@using Hospital_system.ViewModel
+@model DoctorVM
+<h1>Book Appointment</h1>
+<form method="get" action="/Home/BookAppointment" class="mb-3">
+
+    <input type="text" name="name" value="@Model.Name" placeholder="Search doctor name..." class="form-control" />
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Search</button>
+
+</form>
+
+<div class="row">
+    @foreach (var item in Model.Doctors)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img class="card-img" src="~/Images_Layout/Doctor/@item.Img" style="width: 100%; height: auto;" alt="Doctor Image">
+                <div class="card-body">
+                    <h5 class="card-title">Name : @item.Name</h5>
+                    <p class="card-text">Specialization: @item.Specialization</p>
+                    <a href="/Home/CompleteAppointment/@item.Id" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

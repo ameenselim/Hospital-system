@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Appointment>
+
+<h1>Reservations Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Doctor Name</th>
+            <th>Patient Name</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.doctor.Name</td>
+                <td>@item.patient.Name</td>
+                <td>@item.AppointmentDate</td>
+                <td>@item.AppointmentTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

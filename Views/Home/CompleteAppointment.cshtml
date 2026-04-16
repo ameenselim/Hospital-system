@@ -1,0 +1,86 @@
+﻿ @model Doctor
+
+
+<h1>Complete Appointment with Doctor @Model.Name </h1>
+
+<form id="appointmentForm" method="post" action="/Home/CompleteAppointment">
+    <input type="hidden" name="DoctorId" value="@Model.Id">
+
+    <div class="form-group">
+        <label for="patientName">Patient Name:</label>
+        <input type="text" class="form-control" id="patientName" name="patientName" required>
+    </div>
+    <div class="form-group">
+        <label for="appointmentDate">Appointment Date:</label>
+        <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+    </div>
+    <div class="form-group">
+        <div class="mb-3">
+            <label class="form-label">Appointment Time</label>
+
+            <select name="AppointmentTime" class="form-select">
+
+                <option value="">-- Select Time --</option>
+
+                <option value="08:00">08:00 AM</option>
+                <option value="08:30">08:30 AM</option>
+
+                <option value="09:00">09:00 AM</option>
+                <option value="09:30">09:30 AM</option>
+
+                <option value="10:00">10:00 AM</option>
+                <option value="10:30">10:30 AM</option>
+
+                <option value="11:00">11:00 AM</option>
+                <option value="11:30">11:30 AM</option>
+
+                <option value="12:00">12:00 PM</option>
+                <option value="12:30">12:30 PM</option>
+
+                <option value="13:00">01:00 PM</option>
+                <option value="13:30">01:30 PM</option>
+
+                <option value="14:00">02:00 PM</option>
+                <option value="14:30">02:30 PM</option>
+
+                <option value="15:00">03:00 PM</option>
+                <option value="15:30">03:30 PM</option>
+
+                <option value="16:00">04:00 PM</option>
+                <option value="16:30">04:30 PM</option>
+
+                <option value="17:00">05:00 PM</option>
+
+            </select>
+        </div>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary" id="submitBtn">Complete Appointment</button>
+</form>
+<script>
+    document.getElementById("appointmentDate").onchange = function () {
+        let day = new Date(this.value).getDay();
+
+        if (day == 5 || day == 6) {
+            alert("It was chosen from Sunday to Thursday");
+            this.value = "";
+        }
+        
+    }
+</script>
+<script>
+    let bookedTimes = @Html.Raw(Json.Serialize(ViewBag.BookedTimes));
+</script>
+<script>
+    document.querySelector("select[name='AppointmentTime']").onchange = function () {
+
+        let selectedTime = this.value;
+
+        if (bookedTimes.includes(selectedTime)) {
+            alert("ا This appointment is already booked");
+            this.value = "";
+        }
+
+    }
+</script>
